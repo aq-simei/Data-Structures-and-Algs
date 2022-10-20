@@ -33,7 +33,3 @@ int lastStone(vector<int> stones)
   // => results in O(N.log(n))
 };
 
-struct point { // clarify question => whats is the nature of my coordinates (x, y)? -> integers, decimals ,...
-  float x;
-  float y;
-};
