@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void registerUser(string username, string password, unordered_map<string, string> &users, vector<string> &result)
+void registerUser(string username, string password, unordered_map<string, string> &users, vector<string> &result) // O(1)
 {
   if (users.find(username) == users.end())
   {
@@ -19,7 +19,7 @@ void registerUser(string username, string password, unordered_map<string, string
   }
 }
 
-void userLogin(string username, string password, unordered_map<string, string> &users, vector<string> &result, Node & LoginData)
+void userLogin(string username, string password, unordered_map<string, string> &users, vector<string> &result, Node & LoginData) // O(1)
 {
   if (users.find(username) == users.end())
   {
@@ -50,7 +50,7 @@ void userLogin(string username, string password, unordered_map<string, string> &
   }
 }
 
-void userLogout(string username, Node & LoginData, vector<string> &result)
+void userLogout(string username, Node & LoginData, vector<string> &result) // O(1) 
 {
   if (LoginData.userName == username)
   {
@@ -64,7 +64,7 @@ void userLogout(string username, Node & LoginData, vector<string> &result)
   }
 };
 
-vector<string> tokens(string s, string del)
+vector<string> tokens(string & s, string & del) // O(M)
 {
   int start = 0;
   int end = s.find(del);
@@ -99,7 +99,7 @@ struct Node {
   string userName;
 };
 
-void api(vector<string> logs)
+void api(vector<string> & logs) // O(N) => final analisys is O( N * M ) for time complexity and O(1) for space complexity
 {
   Node LoginData;
   vector<string> result;
@@ -127,11 +127,13 @@ void api(vector<string> logs)
 int main()
 {
   vector<string> input = {"5",
-"register david david123"
-"register adam 1Adam1",
-"login david david123",
-"login adam 1adam1",
-"logout david"};
+                          "register david david123",
+                          "register adam 1Adam1",
+                          "login david david123",
+                          "login adam 11adam", // wrong password
+                          "login adam 1Adam1", // no logout yet
+                          "logout david",
+                          "login adam 1Adam1"};;
   api(input);
   return 0;
 }
