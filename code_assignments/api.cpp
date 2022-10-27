@@ -99,7 +99,7 @@ struct Node {
   string userName;
 };
 
-void api(vector<string> & logs) // O(N) => final analisys is O( N * M ) for time complexity and O(1) for space complexity
+void api(vector<string> & logs) // O(N) => final analisys is O( N * M ), where (N is the nunmber of logs and M is the size of the biggest log) for time complexity and O(1) for space complexity
 {
   Node LoginData;
   vector<string> result;
