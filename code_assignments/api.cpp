@@ -19,7 +19,7 @@ void registerUser(string username, string password, unordered_map<string, string
   }
 }
 
-void userLogin(string username, string password, unordered_map<string, string> &users, vector<string> &result, queue<string> &loginControl)
+void userLogin(string username, string password, unordered_map<string, string> &users, vector<string> &result, Node & LoginData)
 {
   if (users.find(username) == users.end())
   {
@@ -30,11 +30,11 @@ void userLogin(string username, string password, unordered_map<string, string> &
   {
     if (users.at(username) == password)
     { // password is correct
-      if (loginControl.empty())
+      if (LoginData.loggedIn == false)
       {                              // no one logged in yet
-        loginControl.push(username); // login
+        LoginData.loggedIn = true ; // login
+        LoginData.userName = username;
         result.push_back("Logged In Successfully");
-        
       }
       else
       {                                         // someone already logged in
@@ -50,13 +50,13 @@ void userLogin(string username, string password, unordered_map<string, string> &
   }
 }
 
-void userLogout(string username, queue<string> &loginControl, vector<string> &result)
+void userLogout(string username, Node & LoginData, vector<string> &result)
 {
-  if (loginControl.front() == username)
+  if (LoginData.userName == username)
   {
-    loginControl.pop(); // clear login queue
+    LoginData.userName = ""; // clear login name
+    LoginData.loggedIn = false; // clear login state
     result.push_back("Logout Successful");
-    
   }
   else
   {
@@ -94,9 +94,14 @@ void printResult(vector<string> & result){
     cout << result[i] << endl;
   }
 }
+struct Node {
+  bool loggedIn;
+  string userName;
+};
 
 void api(vector<string> logs)
 {
+  Node LoginData;
   vector<string> result;
   unordered_map<string, string> users;
   queue<string> loginControl;
@@ -109,11 +114,11 @@ void api(vector<string> logs)
     }
     else if (request[0] == "login")
     {
-      userLogin(request[1], request[2], users, result, loginControl);
+      userLogin(request[1], request[2], users, result, LoginData);
     }
     else if (request[0] == "logout")
     {
-      userLogout(request[1], loginControl, result);
+      userLogout(request[1], LoginData, result);
     }
   };
   printResult(result);
