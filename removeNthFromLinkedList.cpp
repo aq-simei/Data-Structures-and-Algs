@@ -27,7 +27,7 @@ public:
   for(int i = 1; i < toRemoveTracker; i++){
     curr=curr->next;
   }
-  if(toRemoveTracker == 0){
+  if(curr == head){
     head = head->next;
   }
   
